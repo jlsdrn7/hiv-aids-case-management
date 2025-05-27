@@ -28,7 +28,7 @@ jobs:
         run: pyinstaller app_entry.py --name="HIVAIDSCMS" --onefile --noconsole --icon=hiv.ico
 
       - name: Upload EXE
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v3.1.3
         with:
           name: HIVAIDSCMS
           path: dist/HIVAIDSCMS.exe
