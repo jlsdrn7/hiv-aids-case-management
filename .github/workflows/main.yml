@@ -1,0 +1,35 @@
+name: Build Windows Installer
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Install pyinstaller
+        run: pip install pyinstaller
+
+      - name: Build EXE with PyInstaller
+        run: |
+          pyinstaller app_entry.py --name="HIVAIDSCMS" --onefile --noconsole --icon=hiv.ico
+
+      - name: Upload EXE
+        uses: actions/upload-artifact@v3
+        with:
+          name: HIVAIDSCMS
+          path: dist/HIVAIDSCMS.exe
